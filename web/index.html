@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a1922">
+<title>Chaos Chess</title>
+<meta property="og:title" content="Chaos Chess — шахматы с заклинаниями">
+<meta property="og:description" content="Притяни ферзя крюком, обрушь метеор, заморозь фланг. Играй с ботом, другом или онлайн.">
+<link rel="icon" href="assets/icons/meteor.png">
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<div id="app">
+  <div id="loading">Загрузка…</div>
+
+  <section id="menu" class="screen">
+    <button id="menu-ava" class="menu-ava" title="Профиль"></button>
+    <button id="menu-lvl" class="menu-lvl" title="Уровень и задания"></button>
+    <img class="logo" src="assets/ui/logo.png" alt="Chaos Chess">
+    <p class="tagline">Шахматы + заклинания</p>
+    <div class="menu-btns">
+      <div class="row">
+        <button id="btn-bot" class="btn hot big">Против бота</button>
+        <button id="btn-online" class="btn big online">Онлайн</button>
+      </div>
+      <button id="btn-tower" class="btn big tower">Башня Хаоса<small>этаж 1 из 15</small></button>
+      <div class="grid3">
+        <button id="btn-puzzle" class="btn">Головоломка<small>мат за ход</small></button>
+        <button id="btn-draft" class="btn">Драфт<small>арена</small></button>
+        <button id="btn-quests" class="btn">Задания<small>и награды</small></button>
+        <button id="btn-decks" class="btn">Колоды<small>свои</small></button>
+        <button id="btn-coll" class="btn">Коллекция<small>карты, скины</small></button>
+        <button id="btn-rating" class="btn">Рейтинг<small>лиги</small></button>
+      </div>
+      <div class="row small-row">
+        <button id="btn-local" class="btn">Вдвоём</button>
+        <button id="btn-tutorial" class="btn">Обучение</button>
+        <button id="btn-shop" class="btn shop-btn">⭐ Магазин</button>
+        <button id="btn-profile" class="btn">Профиль</button>
+        <button id="btn-settings" class="btn icon" title="Настройки">⚙</button>
+      </div>
+    </div>
+    <button id="btn-invite" class="btn invite-btn">🎁 Позвать друга<small>подарок вам обоим</small></button>
+    <p id="menu-deck" class="muted"></p>
+    <p id="menu-stats" class="muted"></p>
+    <p class="ver muted"></p>
+  </section>
+
+  <section id="decks" class="screen">
+    <div class="screen-head"><button id="decks-back" class="icon-btn">←</button><h2 id="decks-title">Колоды</h2></div>
+    <div id="decks-body"></div>
+  </section>
+
+  <section id="game" class="screen">
+    <div id="hud-top" class="hud"><div class="av"></div><div class="who"><div class="name"></div><div class="mana"></div></div><div class="backs"></div><div class="clock"></div><button id="btn-last" class="icon-btn" title="Прошлый ход соперника">↺</button><button id="btn-log" class="icon-btn" title="Журнал">☰</button></div>
+    <div id="status"></div>
+    <div id="chaosbar"></div>
+    <canvas id="board"></canvas>
+    <div id="cardinfo"></div>
+    <div id="hand"></div>
+    <div id="replaybar"><button id="rp-first" class="icon-btn">⏮</button><button id="rp-prev" class="icon-btn">◀</button><span id="rp-pos">0/0</span><button id="rp-next" class="icon-btn">▶</button><button id="rp-last" class="icon-btn">⏭</button><button id="rp-play" class="icon-btn" title="Автовоспроизведение">⏯</button><button id="rp-close" class="icon-btn">✕</button></div>
+    <div id="hud-bot" class="hud"><div class="av"></div><div class="who"><div class="name"></div><div class="mana"></div></div><div class="backs"></div><div class="clock"></div><button id="btn-hint" class="icon-btn hint" title="Подсказка">💡</button><button id="btn-emote" class="icon-btn" title="Эмоция">☺</button><button id="btn-pause" class="icon-btn" title="Пауза">⏸</button></div>
+  </section>
+
+  <div id="modals"></div>
+</div>
+<script type="module" src="src/ui/main.js"></script>
+</body>
+</html>

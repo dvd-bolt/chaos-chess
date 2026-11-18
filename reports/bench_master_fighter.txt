@@ -1,0 +1,25 @@
+партия 1: лимит, ходов 390
+партия 2: master / mate, ходов 58
+партия 3: master / mate, ходов 35
+партия 4: master / mate, ходов 108
+партия 5: master / mate, ходов 47
+партия 6: fighter / mate, ходов 67
+партия 7: master / mate, ходов 91
+партия 8: ничья / repetition, ходов 137
+партия 9: master / mate, ходов 61
+партия 10: ничья / repetition, ходов 152
+партия 11: master / mate, ходов 77
+партия 12: master / mate, ходов 100
+партия 13: master / mate, ходов 85
+партия 14: master / mate, ходов 158
+партия 15: master / mate, ходов 117
+партия 16: fighter / mate, ходов 87
+партия 17: master / mate, ходов 75
+партия 18: fighter / mate, ходов 153
+партия 19: master / mate, ходов 39
+партия 20: master / mate, ходов 50
+партия 21: master / mate, ходов 65
+партия 22: master / mate, ходов 166
+партия 23: fighter / mate, ходов 162
+партия 24: ничья / fifty, ходов 364
+{"score":{"master":16,"fighter":4,"draw":4},"cardsPerGame":16.2,"pliesPerGame":127,"ms_master":{"avg":222,"p95":1124,"max":1593},"ms_fighter":{"avg":57,"p95":236,"max":1705}}

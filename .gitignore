@@ -1,0 +1,12 @@
+node_modules/
+server/.env
+.env
+data/*
+!data/.gitkeep
+*.db
+*.db-shm
+*.db-wal
+*.bak
+__pycache__/
+*.pyc
+.DS_Store

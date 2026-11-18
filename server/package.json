@@ -1,0 +1,12 @@
+{
+  "name": "chaos-chess-server",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --no-warnings server.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.23.0"
+  }
+}

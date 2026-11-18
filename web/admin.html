@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Chaos Chess — админка</title>
+<style>
+@font-face { font-family: 'Golos Text'; src: url(assets/fonts/golos-cyr.woff2) format('woff2'); unicode-range: U+0400-045F; font-weight: 400 900; }
+@font-face { font-family: 'Golos Text'; src: url(assets/fonts/golos-lat.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; font-weight: 400 900; }
+body { margin: 0; padding: 16px; background: #14121c; color: #efe6d2; font: 500 15px 'Golos Text', system-ui, sans-serif; }
+h1 { font-size: 22px; color: #fee761; margin: 0 0 12px; } h2 { font-size: 17px; color: #b25cff; margin: 22px 0 8px; }
+.kpi { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.kpi div { background: #1f1b2e; padding: 10px; } .kpi b { display: block; font-size: 24px; color: #2ce8f5; } .kpi small { color: #8b8ba0; }
+table { border-collapse: collapse; width: 100%; background: #1f1b2e; font-size: 14px; } td, th { padding: 5px 8px; border-bottom: 1px solid #2b2540; text-align: left; }
+th { color: #8b8ba0; font-weight: 600; } button, input { font: inherit; padding: 6px 10px; background: #2b2540; color: #efe6d2; border: 1px solid #3a3150; cursor: pointer; }
+.ban { color: #e83b3b; } .wrap { max-width: 1000px; margin: 0 auto; } .err { color: #f77622; }
+</style></head><body><div class="wrap">
+<h1>Chaos Chess — админка</h1>
+<div id="login"><p>Токен администратора хранится только в этом браузере.</p><input id="tok" type="password" placeholder="ADMIN_TOKEN" size="40"> <button id="go">Войти</button> <span id="err" class="err"></span></div>
+<div id="out"></div>
+</div>
+<script type="module">
+const $ = s => document.querySelector(s), esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const NAMES = { shield: 'Щит', wall: 'Стена', ritual: 'Ритуал', blink: 'Рывок', hook: 'Крюк', stasis: 'Стазис', mark: 'Метка', meteor: 'Метеор', lightning: 'Молния', shackles: 'Оковы', insight: 'Озарение', march: 'Марш', swap: 'Подмена', ghost: 'Призрак', trap: 'Капкан', shockwave: 'Волна', promote: 'Повышение', portal: 'Портал', rebirth: 'Возрождение', polymorph: 'Порча', quake: 'Землетрясение', mirror: 'Зеркало' };
+const day = t => t ? new Date(t).toLocaleString('ru-RU') : '—';
+async function call(path, body) {
+  const r = await fetch(path, { method: body ? 'POST' : 'GET', headers: { 'x-admin-token': localStorage.getItem('cc_admin') || '' }, body: body ? JSON.stringify(body) : undefined });
+  if (r.status === 403) throw new Error('Неверный токен или админка выключена (нет ADMIN_TOKEN на сервере)');
+  return r.json();
+}
+async function render() {
+  let d;
+  try { d = await call('/api/admin/stats'); } catch (e) { $('#err').textContent = e.message; $('#login').style.display = ''; return; }
+  $('#login').style.display = 'none';
+  $('#out').innerHTML = `
+  <div class="kpi"><div><b>${d.players}</b><small>игроков</small></div><div><b>${d.dau}</b><small>за сутки</small></div><div><b>${d.wau}</b><small>за неделю</small></div>
+  <div><b>${d.d1 ?? '—'}%</b><small>удержание D1</small></div><div><b>${d.d7 ?? '—'}%</b><small>удержание D7</small></div><div><b>${d.games}</b><small>онлайн-партий (сегодня ${d.gamesToday || 0})</small></div>
+  <div><b>${d.avgMoves}</b><small>ходов в среднем</small></div><div><b>${d.live.games}/${d.live.conns}</b><small>идёт партий / подключений</small></div><div><b>${d.season}</b><small>сезон</small></div></div>
+  <h2>Чем кончаются партии</h2><table><tr>${d.reasons.map(r => `<th>${esc(r.reason)}</th>`).join('')}</tr><tr>${d.reasons.map(r => `<td>${r.n}</td>`).join('')}</tr></table>
+  <h2>Популярность карт (последние 500 партий)</h2><table>${d.cards.map(([k, n]) => `<tr><td>${NAMES[k] || k}</td><td>${n}</td></tr>`).join('') || '<tr><td>нет данных</td></tr>'}</table>
+  <h2>События за неделю</h2><table>${d.events.map(e => `<tr><td>${esc(e.name)}</td><td>${e.n}</td></tr>`).join('') || '<tr><td>нет данных</td></tr>'}</table>
+  <h2>Последние партии</h2><table><tr><th>#</th><th>Белые</th><th>Чёрные</th><th>Итог</th><th>Ходов</th><th>Рейтинг</th><th>Когда</th></tr>
+  ${d.recent.map(g => `<tr><td>${g.id}</td><td>${esc(g.w)}</td><td>${esc(g.b)}</td><td>${esc(g.result)} / ${esc(g.reason)}</td><td>${Math.ceil(g.plies / 2)}</td><td>${g.rated ? 'да' : ''}</td><td>${day(g.ended)}</td></tr>`).join('')}</table>
+  <h2>Игроки</h2><table><tr><th>Имя</th><th>Рейтинг</th><th>Партий</th><th>Побед</th><th>Последний вход</th><th></th></tr>
+  ${d.list.map(p => `<tr><td class="${p.banned ? 'ban' : ''}">${esc(p.name)}</td><td>${p.rating ?? ''}</td><td>${p.games}</td><td>${p.wins}</td><td>${day(p.last_seen)}</td>
+  <td><button data-id="${p.id}" data-b="${p.banned ? 0 : 1}">${p.banned ? 'Разбанить' : 'Забанить'}</button></td></tr>`).join('')}</table>`;
+  document.querySelectorAll('button[data-id]').forEach(b => b.onclick = async () => {
+    if (b.dataset.b === '1' && !confirm('Закрыть игроку онлайн?')) return;
+    await call('/api/admin/ban', { id: b.dataset.id, banned: b.dataset.b === '1' }); render();
+  });
+}
+$('#go').onclick = () => { localStorage.setItem('cc_admin', $('#tok').value.trim()); render(); };
+if (localStorage.getItem('cc_admin')) render();
+</script></body></html>

@@ -1,0 +1,2 @@
+{"games":10000,"plies":2985431,"cards":791954,"results":{"material":6480,"stalemate":845,"repetition":126,"mate":861,"fifty":1074,"limit":614},"sec":437.318}
+сыграно по картам: {"swap":29932,"blink":63976,"shackles":41965,"portal":35255,"insight":50682,"mark":48481,"promote":21175,"meteor":56872,"shield":60958,"ritual":37396,"hook":31917,"trap":22285,"wall":76400,"rebirth":26277,"stasis":48091,"march":21332,"polymorph":17884,"mirror":8264,"lightning":25450,"ghost":28069,"quake":14041,"shockwave":25252}

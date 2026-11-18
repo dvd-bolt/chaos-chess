@@ -1,0 +1,42 @@
+{
+ "explosion": {
+  "frames": 8,
+  "w": 32,
+  "h": 32
+ },
+ "meteor_fall": {
+  "frames": 6,
+  "w": 32,
+  "h": 32
+ },
+ "freeze": {
+  "frames": 6,
+  "w": 16,
+  "h": 16
+ },
+ "teleport": {
+  "frames": 6,
+  "w": 16,
+  "h": 32
+ },
+ "lightning": {
+  "frames": 4,
+  "w": 16,
+  "h": 48
+ },
+ "shield": {
+  "frames": 4,
+  "w": 16,
+  "h": 16
+ },
+ "mark": {
+  "frames": 4,
+  "w": 16,
+  "h": 16
+ },
+ "portal": {
+  "frames": 4,
+  "w": 16,
+  "h": 16
+ }
+}
