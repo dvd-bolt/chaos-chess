@@ -1,9 +1,11 @@
+<p align="center"><img src="web/assets/ui/logo_full.jpg" width="320" alt="Chaos Chess"></p>
+
 # Chaos Chess — v0.5 «Друзья и сезон»
 
 ![tests](../../actions/workflows/test.yml/badge.svg)
 
 Шахматы + колода заклинаний. Пиксель-арт, игра в браузере и как Telegram Mini App.
-Адрес: https://chess.138-124-126-138.sslip.io
+Играть: https://chess.138-124-126-138.sslip.io · Telegram: [@ChaosChessbot](https://t.me/ChaosChessbot)
 
 ## Быстрый старт
 Нужен Node.js 22+ (встроенный `node:sqlite`) и Python 3 только для генерации графики.
